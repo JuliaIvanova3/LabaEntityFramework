@@ -1,0 +1,595 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DBReviewsModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DEPARTMENT">
+          <Key>
+            <PropertyRef Name="ID_DEPARTMENT" />
+          </Key>
+          <Property Name="ID_DEPARTMENT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME_DEPARTMENT" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_FACULTY" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DISIPLINE">
+          <Key>
+            <PropertyRef Name="ID_DISIPLINE" />
+          </Key>
+          <Property Name="ID_DISIPLINE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME_DISIPLINE" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DISIPLINE_DEPARTMENT">
+          <Key>
+            <PropertyRef Name="ID_DISDEP" />
+          </Key>
+          <Property Name="ID_DISDEP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_DEPARTMENT" Type="int" Nullable="false" />
+          <Property Name="ID_DISIPLINE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FACULTY">
+          <Key>
+            <PropertyRef Name="ID_FACULTY" />
+          </Key>
+          <Property Name="ID_FACULTY" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME_FACULTY" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_UNIVERSITY" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PROFESSOR">
+          <Key>
+            <PropertyRef Name="ID_PROFESSOR" />
+          </Key>
+          <Property Name="ID_PROFESSOR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME_PROFESSOR" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_DEPARTMENT" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RATE">
+          <Key>
+            <PropertyRef Name="ID_RATE" />
+          </Key>
+          <Property Name="ID_RATE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MARKS_RATE" Type="int" Nullable="false" />
+          <Property Name="INFO_RATE" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="REVIEW">
+          <Key>
+            <PropertyRef Name="ID_REVIEW" />
+          </Key>
+          <Property Name="ID_REVIEW" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_PROFESSOR" Type="int" Nullable="false" />
+          <Property Name="ID_STUDENT" Type="int" Nullable="false" />
+          <Property Name="ID_RATE" Type="int" Nullable="false" />
+          <Property Name="INFO_REVIEW" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="STUDENT">
+          <Key>
+            <PropertyRef Name="ID_STUDENT" />
+          </Key>
+          <Property Name="ID_STUDENT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME_STUDENT" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_FACULTY" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UNIVERSITY">
+          <Key>
+            <PropertyRef Name="ID_UNIVERSITY" />
+          </Key>
+          <Property Name="ID_UNIVERSITY" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME_UNIVERSITY" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DEPARTMENT_FACULTY">
+          <End Role="FACULTY" Type="Self.FACULTY" Multiplicity="1" />
+          <End Role="DEPARTMENT" Type="Self.DEPARTMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACULTY">
+              <PropertyRef Name="ID_FACULTY" />
+            </Principal>
+            <Dependent Role="DEPARTMENT">
+              <PropertyRef Name="ID_FACULTY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISIPLINE_DEPARTMENT_DEPARTMENT">
+          <End Role="DEPARTMENT" Type="Self.DEPARTMENT" Multiplicity="1" />
+          <End Role="DISIPLINE_DEPARTMENT" Type="Self.DISIPLINE_DEPARTMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTMENT">
+              <PropertyRef Name="ID_DEPARTMENT" />
+            </Principal>
+            <Dependent Role="DISIPLINE_DEPARTMENT">
+              <PropertyRef Name="ID_DEPARTMENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISIPLINE_DEPARTMENT_DISIPLINE">
+          <End Role="DISIPLINE" Type="Self.DISIPLINE" Multiplicity="1" />
+          <End Role="DISIPLINE_DEPARTMENT" Type="Self.DISIPLINE_DEPARTMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DISIPLINE">
+              <PropertyRef Name="ID_DISIPLINE" />
+            </Principal>
+            <Dependent Role="DISIPLINE_DEPARTMENT">
+              <PropertyRef Name="ID_DISIPLINE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACULTY_UNIVERSITY">
+          <End Role="UNIVERSITY" Type="Self.UNIVERSITY" Multiplicity="1" />
+          <End Role="FACULTY" Type="Self.FACULTY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UNIVERSITY">
+              <PropertyRef Name="ID_UNIVERSITY" />
+            </Principal>
+            <Dependent Role="FACULTY">
+              <PropertyRef Name="ID_UNIVERSITY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROFESSOR_DEPARTMENT">
+          <End Role="DEPARTMENT" Type="Self.DEPARTMENT" Multiplicity="1" />
+          <End Role="PROFESSOR" Type="Self.PROFESSOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTMENT">
+              <PropertyRef Name="ID_DEPARTMENT" />
+            </Principal>
+            <Dependent Role="PROFESSOR">
+              <PropertyRef Name="ID_DEPARTMENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REVIEW_PROFESSOR">
+          <End Role="PROFESSOR" Type="Self.PROFESSOR" Multiplicity="1" />
+          <End Role="REVIEW" Type="Self.REVIEW" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROFESSOR">
+              <PropertyRef Name="ID_PROFESSOR" />
+            </Principal>
+            <Dependent Role="REVIEW">
+              <PropertyRef Name="ID_PROFESSOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REVIEW_RATE">
+          <End Role="RATE" Type="Self.RATE" Multiplicity="1" />
+          <End Role="REVIEW" Type="Self.REVIEW" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RATE">
+              <PropertyRef Name="ID_RATE" />
+            </Principal>
+            <Dependent Role="REVIEW">
+              <PropertyRef Name="ID_RATE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REVIEW_STUDENT">
+          <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="1" />
+          <End Role="REVIEW" Type="Self.REVIEW" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STUDENT">
+              <PropertyRef Name="ID_STUDENT" />
+            </Principal>
+            <Dependent Role="REVIEW">
+              <PropertyRef Name="ID_STUDENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STUDENT_FACULTY">
+          <End Role="FACULTY" Type="Self.FACULTY" Multiplicity="1" />
+          <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACULTY">
+              <PropertyRef Name="ID_FACULTY" />
+            </Principal>
+            <Dependent Role="STUDENT">
+              <PropertyRef Name="ID_FACULTY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DBReviewsModelContainer">
+          <EntitySet Name="DEPARTMENT" EntityType="Self.DEPARTMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DISIPLINE" EntityType="Self.DISIPLINE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DISIPLINE_DEPARTMENT" EntityType="Self.DISIPLINE_DEPARTMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FACULTY" EntityType="Self.FACULTY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PROFESSOR" EntityType="Self.PROFESSOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RATE" EntityType="Self.RATE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REVIEW" EntityType="Self.REVIEW" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STUDENT" EntityType="Self.STUDENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UNIVERSITY" EntityType="Self.UNIVERSITY" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DEPARTMENT_FACULTY" Association="Self.FK_DEPARTMENT_FACULTY">
+            <End Role="FACULTY" EntitySet="FACULTY" />
+            <End Role="DEPARTMENT" EntitySet="DEPARTMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISIPLINE_DEPARTMENT_DEPARTMENT" Association="Self.FK_DISIPLINE_DEPARTMENT_DEPARTMENT">
+            <End Role="DEPARTMENT" EntitySet="DEPARTMENT" />
+            <End Role="DISIPLINE_DEPARTMENT" EntitySet="DISIPLINE_DEPARTMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISIPLINE_DEPARTMENT_DISIPLINE" Association="Self.FK_DISIPLINE_DEPARTMENT_DISIPLINE">
+            <End Role="DISIPLINE" EntitySet="DISIPLINE" />
+            <End Role="DISIPLINE_DEPARTMENT" EntitySet="DISIPLINE_DEPARTMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACULTY_UNIVERSITY" Association="Self.FK_FACULTY_UNIVERSITY">
+            <End Role="UNIVERSITY" EntitySet="UNIVERSITY" />
+            <End Role="FACULTY" EntitySet="FACULTY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PROFESSOR_DEPARTMENT" Association="Self.FK_PROFESSOR_DEPARTMENT">
+            <End Role="DEPARTMENT" EntitySet="DEPARTMENT" />
+            <End Role="PROFESSOR" EntitySet="PROFESSOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REVIEW_PROFESSOR" Association="Self.FK_REVIEW_PROFESSOR">
+            <End Role="PROFESSOR" EntitySet="PROFESSOR" />
+            <End Role="REVIEW" EntitySet="REVIEW" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REVIEW_RATE" Association="Self.FK_REVIEW_RATE">
+            <End Role="RATE" EntitySet="RATE" />
+            <End Role="REVIEW" EntitySet="REVIEW" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REVIEW_STUDENT" Association="Self.FK_REVIEW_STUDENT">
+            <End Role="STUDENT" EntitySet="STUDENT" />
+            <End Role="REVIEW" EntitySet="REVIEW" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STUDENT_FACULTY" Association="Self.FK_STUDENT_FACULTY">
+            <End Role="FACULTY" EntitySet="FACULTY" />
+            <End Role="STUDENT" EntitySet="STUDENT" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBReviewsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DEPARTMENT">
+          <Key>
+            <PropertyRef Name="ID_DEPARTMENT" />
+          </Key>
+          <Property Name="ID_DEPARTMENT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_DEPARTMENT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_FACULTY" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FACULTY" Relationship="Self.FK_DEPARTMENT_FACULTY" FromRole="DEPARTMENT" ToRole="FACULTY" />
+          <NavigationProperty Name="DISIPLINE_DEPARTMENT" Relationship="Self.FK_DISIPLINE_DEPARTMENT_DEPARTMENT" FromRole="DEPARTMENT" ToRole="DISIPLINE_DEPARTMENT" />
+          <NavigationProperty Name="PROFESSOR" Relationship="Self.FK_PROFESSOR_DEPARTMENT" FromRole="DEPARTMENT" ToRole="PROFESSOR" />
+        </EntityType>
+        <EntityType Name="DISIPLINE">
+          <Key>
+            <PropertyRef Name="ID_DISIPLINE" />
+          </Key>
+          <Property Name="ID_DISIPLINE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_DISIPLINE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DISIPLINE_DEPARTMENT" Relationship="Self.FK_DISIPLINE_DEPARTMENT_DISIPLINE" FromRole="DISIPLINE" ToRole="DISIPLINE_DEPARTMENT" />
+        </EntityType>
+        <EntityType Name="DISIPLINE_DEPARTMENT">
+          <Key>
+            <PropertyRef Name="ID_DISDEP" />
+          </Key>
+          <Property Name="ID_DISDEP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_DEPARTMENT" Type="Int32" Nullable="false" />
+          <Property Name="ID_DISIPLINE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DEPARTMENT" Relationship="Self.FK_DISIPLINE_DEPARTMENT_DEPARTMENT" FromRole="DISIPLINE_DEPARTMENT" ToRole="DEPARTMENT" />
+          <NavigationProperty Name="DISIPLINE" Relationship="Self.FK_DISIPLINE_DEPARTMENT_DISIPLINE" FromRole="DISIPLINE_DEPARTMENT" ToRole="DISIPLINE" />
+        </EntityType>
+        <EntityType Name="FACULTY">
+          <Key>
+            <PropertyRef Name="ID_FACULTY" />
+          </Key>
+          <Property Name="ID_FACULTY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_FACULTY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_UNIVERSITY" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DEPARTMENT" Relationship="Self.FK_DEPARTMENT_FACULTY" FromRole="FACULTY" ToRole="DEPARTMENT" />
+          <NavigationProperty Name="UNIVERSITY" Relationship="Self.FK_FACULTY_UNIVERSITY" FromRole="FACULTY" ToRole="UNIVERSITY" />
+          <NavigationProperty Name="STUDENT" Relationship="Self.FK_STUDENT_FACULTY" FromRole="FACULTY" ToRole="STUDENT" />
+        </EntityType>
+        <EntityType Name="PROFESSOR">
+          <Key>
+            <PropertyRef Name="ID_PROFESSOR" />
+          </Key>
+          <Property Name="ID_PROFESSOR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_PROFESSOR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_DEPARTMENT" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DEPARTMENT" Relationship="Self.FK_PROFESSOR_DEPARTMENT" FromRole="PROFESSOR" ToRole="DEPARTMENT" />
+          <NavigationProperty Name="REVIEW" Relationship="Self.FK_REVIEW_PROFESSOR" FromRole="PROFESSOR" ToRole="REVIEW" />
+        </EntityType>
+        <EntityType Name="RATE">
+          <Key>
+            <PropertyRef Name="ID_RATE" />
+          </Key>
+          <Property Name="ID_RATE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MARKS_RATE" Type="Int32" Nullable="false" />
+          <Property Name="INFO_RATE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="REVIEW" Relationship="Self.FK_REVIEW_RATE" FromRole="RATE" ToRole="REVIEW" />
+        </EntityType>
+        <EntityType Name="REVIEW">
+          <Key>
+            <PropertyRef Name="ID_REVIEW" />
+          </Key>
+          <Property Name="ID_REVIEW" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PROFESSOR" Type="Int32" Nullable="false" />
+          <Property Name="ID_STUDENT" Type="Int32" Nullable="false" />
+          <Property Name="ID_RATE" Type="Int32" Nullable="false" />
+          <Property Name="INFO_REVIEW" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PROFESSOR" Relationship="Self.FK_REVIEW_PROFESSOR" FromRole="REVIEW" ToRole="PROFESSOR" />
+          <NavigationProperty Name="RATE" Relationship="Self.FK_REVIEW_RATE" FromRole="REVIEW" ToRole="RATE" />
+          <NavigationProperty Name="STUDENT" Relationship="Self.FK_REVIEW_STUDENT" FromRole="REVIEW" ToRole="STUDENT" />
+        </EntityType>
+        <EntityType Name="STUDENT">
+          <Key>
+            <PropertyRef Name="ID_STUDENT" />
+          </Key>
+          <Property Name="ID_STUDENT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_STUDENT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_FACULTY" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FACULTY" Relationship="Self.FK_STUDENT_FACULTY" FromRole="STUDENT" ToRole="FACULTY" />
+          <NavigationProperty Name="REVIEW" Relationship="Self.FK_REVIEW_STUDENT" FromRole="STUDENT" ToRole="REVIEW" />
+        </EntityType>
+        <EntityType Name="UNIVERSITY">
+          <Key>
+            <PropertyRef Name="ID_UNIVERSITY" />
+          </Key>
+          <Property Name="ID_UNIVERSITY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_UNIVERSITY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="FACULTY" Relationship="Self.FK_FACULTY_UNIVERSITY" FromRole="UNIVERSITY" ToRole="FACULTY" />
+        </EntityType>
+        <Association Name="FK_DEPARTMENT_FACULTY">
+          <End Role="FACULTY" Type="Self.FACULTY" Multiplicity="1" />
+          <End Role="DEPARTMENT" Type="Self.DEPARTMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACULTY">
+              <PropertyRef Name="ID_FACULTY" />
+            </Principal>
+            <Dependent Role="DEPARTMENT">
+              <PropertyRef Name="ID_FACULTY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISIPLINE_DEPARTMENT_DEPARTMENT">
+          <End Role="DEPARTMENT" Type="Self.DEPARTMENT" Multiplicity="1" />
+          <End Role="DISIPLINE_DEPARTMENT" Type="Self.DISIPLINE_DEPARTMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTMENT">
+              <PropertyRef Name="ID_DEPARTMENT" />
+            </Principal>
+            <Dependent Role="DISIPLINE_DEPARTMENT">
+              <PropertyRef Name="ID_DEPARTMENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROFESSOR_DEPARTMENT">
+          <End Role="DEPARTMENT" Type="Self.DEPARTMENT" Multiplicity="1" />
+          <End Role="PROFESSOR" Type="Self.PROFESSOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTMENT">
+              <PropertyRef Name="ID_DEPARTMENT" />
+            </Principal>
+            <Dependent Role="PROFESSOR">
+              <PropertyRef Name="ID_DEPARTMENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISIPLINE_DEPARTMENT_DISIPLINE">
+          <End Role="DISIPLINE" Type="Self.DISIPLINE" Multiplicity="1" />
+          <End Role="DISIPLINE_DEPARTMENT" Type="Self.DISIPLINE_DEPARTMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DISIPLINE">
+              <PropertyRef Name="ID_DISIPLINE" />
+            </Principal>
+            <Dependent Role="DISIPLINE_DEPARTMENT">
+              <PropertyRef Name="ID_DISIPLINE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACULTY_UNIVERSITY">
+          <End Role="UNIVERSITY" Type="Self.UNIVERSITY" Multiplicity="1" />
+          <End Role="FACULTY" Type="Self.FACULTY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UNIVERSITY">
+              <PropertyRef Name="ID_UNIVERSITY" />
+            </Principal>
+            <Dependent Role="FACULTY">
+              <PropertyRef Name="ID_UNIVERSITY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STUDENT_FACULTY">
+          <End Role="FACULTY" Type="Self.FACULTY" Multiplicity="1" />
+          <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACULTY">
+              <PropertyRef Name="ID_FACULTY" />
+            </Principal>
+            <Dependent Role="STUDENT">
+              <PropertyRef Name="ID_FACULTY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REVIEW_PROFESSOR">
+          <End Role="PROFESSOR" Type="Self.PROFESSOR" Multiplicity="1" />
+          <End Role="REVIEW" Type="Self.REVIEW" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROFESSOR">
+              <PropertyRef Name="ID_PROFESSOR" />
+            </Principal>
+            <Dependent Role="REVIEW">
+              <PropertyRef Name="ID_PROFESSOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REVIEW_RATE">
+          <End Role="RATE" Type="Self.RATE" Multiplicity="1" />
+          <End Role="REVIEW" Type="Self.REVIEW" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RATE">
+              <PropertyRef Name="ID_RATE" />
+            </Principal>
+            <Dependent Role="REVIEW">
+              <PropertyRef Name="ID_RATE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REVIEW_STUDENT">
+          <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="1" />
+          <End Role="REVIEW" Type="Self.REVIEW" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STUDENT">
+              <PropertyRef Name="ID_STUDENT" />
+            </Principal>
+            <Dependent Role="REVIEW">
+              <PropertyRef Name="ID_STUDENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBReviewsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DEPARTMENT" EntityType="Self.DEPARTMENT" />
+          <EntitySet Name="DISIPLINE" EntityType="Self.DISIPLINE" />
+          <EntitySet Name="DISIPLINE_DEPARTMENT" EntityType="Self.DISIPLINE_DEPARTMENT" />
+          <EntitySet Name="FACULTY" EntityType="Self.FACULTY" />
+          <EntitySet Name="PROFESSOR" EntityType="Self.PROFESSOR" />
+          <EntitySet Name="RATE" EntityType="Self.RATE" />
+          <EntitySet Name="REVIEW" EntityType="Self.REVIEW" />
+          <EntitySet Name="STUDENT" EntityType="Self.STUDENT" />
+          <EntitySet Name="UNIVERSITY" EntityType="Self.UNIVERSITY" />
+          <AssociationSet Name="FK_DEPARTMENT_FACULTY" Association="Self.FK_DEPARTMENT_FACULTY">
+            <End Role="FACULTY" EntitySet="FACULTY" />
+            <End Role="DEPARTMENT" EntitySet="DEPARTMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISIPLINE_DEPARTMENT_DEPARTMENT" Association="Self.FK_DISIPLINE_DEPARTMENT_DEPARTMENT">
+            <End Role="DEPARTMENT" EntitySet="DEPARTMENT" />
+            <End Role="DISIPLINE_DEPARTMENT" EntitySet="DISIPLINE_DEPARTMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PROFESSOR_DEPARTMENT" Association="Self.FK_PROFESSOR_DEPARTMENT">
+            <End Role="DEPARTMENT" EntitySet="DEPARTMENT" />
+            <End Role="PROFESSOR" EntitySet="PROFESSOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISIPLINE_DEPARTMENT_DISIPLINE" Association="Self.FK_DISIPLINE_DEPARTMENT_DISIPLINE">
+            <End Role="DISIPLINE" EntitySet="DISIPLINE" />
+            <End Role="DISIPLINE_DEPARTMENT" EntitySet="DISIPLINE_DEPARTMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACULTY_UNIVERSITY" Association="Self.FK_FACULTY_UNIVERSITY">
+            <End Role="UNIVERSITY" EntitySet="UNIVERSITY" />
+            <End Role="FACULTY" EntitySet="FACULTY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STUDENT_FACULTY" Association="Self.FK_STUDENT_FACULTY">
+            <End Role="FACULTY" EntitySet="FACULTY" />
+            <End Role="STUDENT" EntitySet="STUDENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REVIEW_PROFESSOR" Association="Self.FK_REVIEW_PROFESSOR">
+            <End Role="PROFESSOR" EntitySet="PROFESSOR" />
+            <End Role="REVIEW" EntitySet="REVIEW" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REVIEW_RATE" Association="Self.FK_REVIEW_RATE">
+            <End Role="RATE" EntitySet="RATE" />
+            <End Role="REVIEW" EntitySet="REVIEW" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REVIEW_STUDENT" Association="Self.FK_REVIEW_STUDENT">
+            <End Role="STUDENT" EntitySet="STUDENT" />
+            <End Role="REVIEW" EntitySet="REVIEW" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DBReviewsModelContainer" CdmEntityContainer="DBReviewsEntities">
+          <EntitySetMapping Name="DEPARTMENT">
+            <EntityTypeMapping TypeName="DBReviewsModel.DEPARTMENT">
+              <MappingFragment StoreEntitySet="DEPARTMENT">
+                <ScalarProperty Name="ID_DEPARTMENT" ColumnName="ID_DEPARTMENT" />
+                <ScalarProperty Name="NAME_DEPARTMENT" ColumnName="NAME_DEPARTMENT" />
+                <ScalarProperty Name="ID_FACULTY" ColumnName="ID_FACULTY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DISIPLINE">
+            <EntityTypeMapping TypeName="DBReviewsModel.DISIPLINE">
+              <MappingFragment StoreEntitySet="DISIPLINE">
+                <ScalarProperty Name="ID_DISIPLINE" ColumnName="ID_DISIPLINE" />
+                <ScalarProperty Name="NAME_DISIPLINE" ColumnName="NAME_DISIPLINE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DISIPLINE_DEPARTMENT">
+            <EntityTypeMapping TypeName="DBReviewsModel.DISIPLINE_DEPARTMENT">
+              <MappingFragment StoreEntitySet="DISIPLINE_DEPARTMENT">
+                <ScalarProperty Name="ID_DISDEP" ColumnName="ID_DISDEP" />
+                <ScalarProperty Name="ID_DEPARTMENT" ColumnName="ID_DEPARTMENT" />
+                <ScalarProperty Name="ID_DISIPLINE" ColumnName="ID_DISIPLINE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FACULTY">
+            <EntityTypeMapping TypeName="DBReviewsModel.FACULTY">
+              <MappingFragment StoreEntitySet="FACULTY">
+                <ScalarProperty Name="ID_FACULTY" ColumnName="ID_FACULTY" />
+                <ScalarProperty Name="NAME_FACULTY" ColumnName="NAME_FACULTY" />
+                <ScalarProperty Name="ID_UNIVERSITY" ColumnName="ID_UNIVERSITY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROFESSOR">
+            <EntityTypeMapping TypeName="DBReviewsModel.PROFESSOR">
+              <MappingFragment StoreEntitySet="PROFESSOR">
+                <ScalarProperty Name="ID_PROFESSOR" ColumnName="ID_PROFESSOR" />
+                <ScalarProperty Name="NAME_PROFESSOR" ColumnName="NAME_PROFESSOR" />
+                <ScalarProperty Name="ID_DEPARTMENT" ColumnName="ID_DEPARTMENT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RATE">
+            <EntityTypeMapping TypeName="DBReviewsModel.RATE">
+              <MappingFragment StoreEntitySet="RATE">
+                <ScalarProperty Name="ID_RATE" ColumnName="ID_RATE" />
+                <ScalarProperty Name="MARKS_RATE" ColumnName="MARKS_RATE" />
+                <ScalarProperty Name="INFO_RATE" ColumnName="INFO_RATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REVIEW">
+            <EntityTypeMapping TypeName="DBReviewsModel.REVIEW">
+              <MappingFragment StoreEntitySet="REVIEW">
+                <ScalarProperty Name="ID_REVIEW" ColumnName="ID_REVIEW" />
+                <ScalarProperty Name="ID_PROFESSOR" ColumnName="ID_PROFESSOR" />
+                <ScalarProperty Name="ID_STUDENT" ColumnName="ID_STUDENT" />
+                <ScalarProperty Name="ID_RATE" ColumnName="ID_RATE" />
+                <ScalarProperty Name="INFO_REVIEW" ColumnName="INFO_REVIEW" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STUDENT">
+            <EntityTypeMapping TypeName="DBReviewsModel.STUDENT">
+              <MappingFragment StoreEntitySet="STUDENT">
+                <ScalarProperty Name="ID_STUDENT" ColumnName="ID_STUDENT" />
+                <ScalarProperty Name="NAME_STUDENT" ColumnName="NAME_STUDENT" />
+                <ScalarProperty Name="ID_FACULTY" ColumnName="ID_FACULTY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UNIVERSITY">
+            <EntityTypeMapping TypeName="DBReviewsModel.UNIVERSITY">
+              <MappingFragment StoreEntitySet="UNIVERSITY">
+                <ScalarProperty Name="ID_UNIVERSITY" ColumnName="ID_UNIVERSITY" />
+                <ScalarProperty Name="NAME_UNIVERSITY" ColumnName="NAME_UNIVERSITY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

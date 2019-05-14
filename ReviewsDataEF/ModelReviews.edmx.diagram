@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5958dddb58ba42e3b42718bbb0e584b1" Name="Diagram1" ZoomLevel="93">
+        <EntityTypeShape EntityType="DBReviewsModel.DEPARTMENT" Width="1.5" PointX="5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBReviewsModel.DISIPLINE" Width="1.5" PointX="8.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBReviewsModel.DISIPLINE_DEPARTMENT" Width="1.5" PointX="6.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBReviewsModel.FACULTY" Width="1.5" PointX="3.125" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBReviewsModel.PROFESSOR" Width="1.5" PointX="7" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBReviewsModel.RATE" Width="1.5" PointX="10.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBReviewsModel.REVIEW" Width="1.5" PointX="8.875" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBReviewsModel.STUDENT" Width="1.5" PointX="4.875" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBReviewsModel.UNIVERSITY" Width="1.5" PointX="3.125" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="DBReviewsModel.FK_DEPARTMENT_FACULTY" ManuallyRouted="false" />
+        <AssociationConnector Association="DBReviewsModel.FK_DISIPLINE_DEPARTMENT_DEPARTMENT" ManuallyRouted="false" />
+        <AssociationConnector Association="DBReviewsModel.FK_PROFESSOR_DEPARTMENT" ManuallyRouted="false" />
+        <AssociationConnector Association="DBReviewsModel.FK_DISIPLINE_DEPARTMENT_DISIPLINE" ManuallyRouted="false" />
+        <AssociationConnector Association="DBReviewsModel.FK_FACULTY_UNIVERSITY" ManuallyRouted="false" />
+        <AssociationConnector Association="DBReviewsModel.FK_STUDENT_FACULTY" ManuallyRouted="false" />
+        <AssociationConnector Association="DBReviewsModel.FK_REVIEW_PROFESSOR" ManuallyRouted="false" />
+        <AssociationConnector Association="DBReviewsModel.FK_REVIEW_RATE" ManuallyRouted="false" />
+        <AssociationConnector Association="DBReviewsModel.FK_REVIEW_STUDENT" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
